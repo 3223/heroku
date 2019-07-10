@@ -10,16 +10,22 @@
 <div class="col-md-4 mx-auto">
   <div class="card">
     <div class="card-header">
-      <h3>Edit Note</h3>
+      <h3>Editar Cita</h3>
     </div>
     <div class="card-body">
       <form action="/notes/edit-note/{{note._id}}?_method=PUT" method="POST">
         <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
-          <input type="text" name="title" class="form-control" value="{{note.title}}"/>
+          <input type="text" name="nombre" class="form-control" value="{{note.nombre}}"/>
         </div>
         <div class="form-group">
-          <textarea name="description" class="form-control">{{note.description}}</textarea>
+          <input type="text" name="tel" class="form-control" value="{{note.tel}}"/>
+        </div>
+        <div class="form-group">
+          <input type="text" name="email" class="form-control" value="{{note.email}}"/>
+        </div>
+        <div class="form-group">
+          <textarea name="sintomas" class="form-control">{{note.sintomas}}</textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" type="submit">

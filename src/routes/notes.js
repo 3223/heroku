@@ -13,25 +13,34 @@ router.get('/notes/add', isAuthenticated, (req, res) => {
 });
 
 router.post('/notes/new-note', isAuthenticated, async (req, res) => {
-  const { title, description } = req.body;
+  const { nombre, tel, email, sintomas } = req.body;
   const errors = [];
-  if (!title) {
-    errors.push({text: 'Please Write a Title.'});
+  if (!nombre) {
+    errors.push({text: 'Escribe tu nombre.'});
   }
-  if (!description) {
-    errors.push({text: 'Please Write a Description'});
+  if (!tel) {
+    errors.push({text: 'Escribe tu numero d telefono'});
+  }
+  if (!email) {
+    errors.push({text: 'Escribe tu E-mail'});
+  }
+  if (!sintomas) {
+    errors.push({text: 'Escribe tus sintomas'});
   }
   if (errors.length > 0) {
     res.render('notes/new-note', {
       errors,
-      title,
-      description
+      nombre,
+      tel,
+      email,
+      sintomas
+
     });
   } else {
-    const newNote = new Note({title, description});
+    const newNote = new Note({nombre, tel, email, sintomas});
     newNote.user = req.user.id;
     await newNote.save();
-    req.flash('success_msg', 'Note Added Successfully');
+    req.flash('success_msg', 'Cita Added Successfully');
     res.redirect('/notes');
   }
 });
@@ -53,8 +62,8 @@ router.get('/notes/edit/:id', isAuthenticated, async (req, res) => {
 });
 
 router.put('/notes/edit-note/:id', isAuthenticated, async (req, res) => {
-  const { title, description } = req.body;
-  await Note.findByIdAndUpdate(req.params.id, {title, description});
+  const { nombre, tel, email, sintomas } = req.body;
+  await Note.findByIdAndUpdate(req.params.id, {nombre, tel, email, sintomas});
   req.flash('success_msg', 'Note Updated Successfully');
   res.redirect('/notes');
 });
